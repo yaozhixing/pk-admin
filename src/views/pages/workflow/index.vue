@@ -1,83 +1,112 @@
 <template>
-	<div class="workflow-form-container">
-		<div class="layout-view-bg-white flex" :style="{ height: `calc(100vh - ${setViewHeight}` }">
-			<div class="workflow">
-				<!-- 顶部工具栏 -->
-				<div class="workflow-tool">
-					<div class="pl15">{{ setToolTitle }}</div>
-					<div class="workflow-tool-right">
-						<div class="workflow-tool-icon">
-							<i class="el-icon-warning-outline"></i>
-						</div>
-						<div class="workflow-tool-icon">
-							<i class="el-icon-download"></i>
-						</div>
-						<div class="workflow-tool-icon">
-							<i class="el-icon-video-play"></i>
-						</div>
-						<div class="workflow-tool-icon">
-							<i class="el-icon-full-screen"></i>
-						</div>
-						<div class="workflow-tool-icon">
-							<i class="el-icon-printer"></i>
-						</div>
-					</div>
-				</div>
+  <div class="workflow-form-container">
+    <div
+      class="layout-view-bg-white flex"
+      :style="{ height: `calc(100vh - ${setViewHeight}` }"
+    >
+      <div class="workflow">
+        <!-- 顶部工具栏 -->
+        <div class="workflow-tool">
+          <div class="pl15">{{ setToolTitle }}</div>
+          <div class="workflow-tool-right">
+            <div class="workflow-tool-icon">
+              <i class="el-icon-warning-outline"></i>
+            </div>
+            <div class="workflow-tool-icon">
+              <i class="el-icon-download"></i>
+            </div>
+            <div class="workflow-tool-icon">
+              <i class="el-icon-video-play"></i>
+            </div>
+            <div class="workflow-tool-icon">
+              <i class="el-icon-full-screen"></i>
+            </div>
+            <div class="workflow-tool-icon">
+              <i class="el-icon-printer"></i>
+            </div>
+          </div>
+        </div>
 
-				<!-- 左侧导航区 -->
-				<div class="workflow-content">
-					<div id="workflow-left">
-						<el-scrollbar>
-							<div
-								:id="`left${key}`"
-								v-for="(val, key) in leftNavList"
-								:key="key"
-								:style="{ height: val.isOpen ? 'auto' : '50px', overflow: 'hidden' }"
-								class="workflow-left-id"
-							>
-								<div class="workflow-left-title" @click="onTitleClick(val)">
-									<span>{{ val.title }}</span>
-									<i :class="val.isOpen ? 'el-icon-arrow-down' : 'el-icon-arrow-right'"></i>
-								</div>
-								<div class="workflow-left-item" v-for="(v, k) in val.children" :key="k" :data-name="v.name" :data-icon="v.icon">
-									<div class="workflow-left-item-icon">
-										<i :class="v.icon" class="workflow-icon-drag"></i>
-										<div class="font10 pl5 name">{{ v.name }}</div>
-									</div>
-								</div>
-							</div>
-						</el-scrollbar>
-					</div>
+        <!-- 左侧导航区 -->
+        <div class="workflow-content">
+          <div id="workflow-left">
+            <el-scrollbar>
+              <div
+                :id="`left${key}`"
+                v-for="(val, key) in leftNavList"
+                :key="key"
+                :style="{ height: val.isOpen ? 'auto' : '50px', overflow: 'hidden' }"
+                class="workflow-left-id"
+              >
+                <div
+                  class="workflow-left-title"
+                  @click="onTitleClick(val)"
+                >
+                  <span>{{ val.title }}</span>
+                  <i :class="val.isOpen ? 'el-icon-arrow-down' : 'el-icon-arrow-right'"></i>
+                </div>
+                <div
+                  class="workflow-left-item"
+                  v-for="(v, k) in val.children"
+                  :key="k"
+                  :data-name="v.name"
+                  :data-icon="v.icon"
+                >
+                  <div class="workflow-left-item-icon">
+                    <i
+                      :class="v.icon"
+                      class="workflow-icon-drag"
+                    ></i>
+                    <div class="font10 pl5 name">{{ v.name }}</div>
+                  </div>
+                </div>
+              </div>
+            </el-scrollbar>
+          </div>
 
-					<!-- 右侧绘画区 -->
-					<div id="workflow-right">
-						<div
-							v-for="(v, k) in nodeList"
-							:key="k"
-							:id="v.nodeId"
-							:class="v.class"
-							:style="{ left: v.left, top: v.top }"
-							@click="onItemCloneClick(k)"
-							@contextmenu.prevent="onContextmenu(v, k, $event)"
-						>
-							<div class="workflow-right-box" :class="{ 'workflow-right-active': nodeIndex === k }">
-								<div class="workflow-left-item-icon">
-									<i class="workflow-icon-drag" :class="v.icon"></i>
-									<div class="font10 pl5 name">{{ v.name }}</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 节点右键菜单 -->
-		<Contextmenu :dropdown="dropdownNode" ref="contextmenuNodeRef" @current="onCurrentNodeClick" />
-		<!-- 线右键菜单 -->
-		<Contextmenu :dropdown="dropdownLine" ref="contextmenuLineRef" @current="onCurrentLineClick" />
-		<!-- 弹窗表单、线 -->
-		<Drawer ref="drawerRef" />
-	</div>
+          <!-- 右侧绘画区 -->
+          <div id="workflow-right">
+            <div
+              v-for="(v, k) in nodeList"
+              :key="k"
+              :id="v.nodeId"
+              :class="v.class"
+              :style="{ left: v.left, top: v.top }"
+              @click="onItemCloneClick(k)"
+              @contextmenu.prevent="onContextmenu(v, k, $event)"
+            >
+              <div
+                class="workflow-right-box"
+                :class="{ 'workflow-right-active': nodeIndex === k }"
+              >
+                <div class="workflow-left-item-icon">
+                  <i
+                    class="workflow-icon-drag"
+                    :class="v.icon"
+                  ></i>
+                  <div class="font10 pl5 name">{{ v.name }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 节点右键菜单 -->
+    <Contextmenu
+      :dropdown="dropdownNode"
+      ref="contextmenuNodeRef"
+      @current="onCurrentNodeClick"
+    />
+    <!-- 线右键菜单 -->
+    <Contextmenu
+      :dropdown="dropdownLine"
+      ref="contextmenuLineRef"
+      @current="onCurrentLineClick"
+    />
+    <!-- 弹窗表单、线 -->
+    <Drawer ref="drawerRef" />
+  </div>
 </template>
 
 <script lang="ts">
@@ -133,7 +162,7 @@ export default defineComponent({
 		const initSortable = () => {
 			state.leftNavList.forEach((v, k) => {
 				Sortable.create(document.getElementById(`left${k}`), {
-					group: { name: 'vue-next-admin-1', pull: 'clone', put: false },
+					group: { name: 'saas-admin-1', pull: 'clone', put: false },
 					animation: 0,
 					sort: false,
 					draggable: '.workflow-left-item',

@@ -1,204 +1,256 @@
 <template>
-	<div class="chart-scrollbar layout-view-bg-white" :style="{ height: `calc(100vh - ${initTagViewHeight}` }">
-		<div class="chart-warp">
-			<div class="chart-warp-top">
-				<ChartHead />
-			</div>
-			<div class="chart-warp-bottom">
-				<!-- 左边 -->
-				<div class="big-data-down-left">
-					<div class="flex-warp-item">
-						<div class="flex-warp-item-box">
-							<div class="flex-title">天气预报</div>
-							<div class="flex-content">
-								<div class="sky">
-									<SvgIcon name="elementSunny" class="sky-left" />
-									<div class="sky-center">
-										<div class="mb2">
-											<span>多云转晴</span>
-											<span>东南风</span>
-											<span class="span ml5">良</span>
-										</div>
-									</div>
-									<div class="sky-right">
-										<span>25</span>
-										<span>°C</span>
-									</div>
-								</div>
-								<div class="sky-dd">
-									<div class="sky-dl" v-for="(v, k) in skyList" :key="k" :class="{ 'sky-dl-first': k === 1 }">
-										<div>{{ v.v1 }}</div>
-										<div v-if="v.type === 'title'">{{ v.v2 }}</div>
-										<div v-else>
-											<SvgIcon :name="v.v2" />
-										</div>
-										<div>{{ v.v3 }}</div>
-										<div class="tip">{{ v.v5 }}</div>
-										<div>{{ v.v7 }}</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="flex-warp-item">
-						<div class="flex-warp-item-box">
-							<div class="flex-title">当前设备状态</div>
-							<div class="flex-content flex-content-overflow">
-								<div class="d-states">
-									<div class="d-states-item">
-										<SvgIcon name="elementOdometer" class="i-bg1" />
-										<div class="d-states-flex">
-											<div class="d-states-item-label">园区设备数</div>
-											<div class="d-states-item-value">99</div>
-										</div>
-									</div>
-									<div class="d-states-item">
-										<SvgIcon name="elementFirstAidKit" class="i-bg2" />
-										<div class="d-states-flex">
-											<div class="d-states-item-label">预警设备数</div>
-											<div class="d-states-item-value">10</div>
-										</div>
-									</div>
-									<div class="d-states-item">
-										<SvgIcon name="elementVideoPlay" class="i-bg3" />
-										<div class="d-states-flex">
-											<div class="d-states-item-label">运行设备数</div>
-											<div class="d-states-item-value">20</div>
-										</div>
-									</div>
-								</div>
-								<div class="d-btn">
-									<div class="d-btn-item" v-for="(v, k) in dBtnList" :key="k">
-										<i class="d-btn-item-left el-icon-money"></i>
-										<div class="d-btn-item-center">
-											<div>{{ v.v2 }}|{{ v.v3 }}</div>
-										</div>
-										<div class="d-btn-item-eight">{{ v.v4 }}</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="flex-warp-item">
-						<div class="flex-warp-item-box">
-							<div class="flex-title">近30天预警总数</div>
-							<div class="flex-content">
-								<div style="height: 100%" ref="chartsWarningRef"></div>
-							</div>
-						</div>
-					</div>
-				</div>
+  <div
+    class="chart-scrollbar layout-view-bg-white"
+    :style="{ height: `calc(100vh - ${initTagViewHeight}` }"
+  >
+    <div class="chart-warp">
+      <div class="chart-warp-top">
+        <ChartHead />
+      </div>
+      <div class="chart-warp-bottom">
+        <!-- 左边 -->
+        <div class="big-data-down-left">
+          <div class="flex-warp-item">
+            <div class="flex-warp-item-box">
+              <div class="flex-title">天气预报</div>
+              <div class="flex-content">
+                <div class="sky">
+                  <SvgIcon
+                    name="elementSunny"
+                    class="sky-left"
+                  />
+                  <div class="sky-center">
+                    <div class="mb2">
+                      <span>多云转晴</span>
+                      <span>东南风</span>
+                      <span class="span ml5">良</span>
+                    </div>
+                  </div>
+                  <div class="sky-right">
+                    <span>25</span>
+                    <span>°C</span>
+                  </div>
+                </div>
+                <div class="sky-dd">
+                  <div
+                    class="sky-dl"
+                    v-for="(v, k) in skyList"
+                    :key="k"
+                    :class="{ 'sky-dl-first': k === 1 }"
+                  >
+                    <div>{{ v.v1 }}</div>
+                    <div v-if="v.type === 'title'">{{ v.v2 }}</div>
+                    <div v-else>
+                      <SvgIcon :name="v.v2" />
+                    </div>
+                    <div>{{ v.v3 }}</div>
+                    <div class="tip">{{ v.v5 }}</div>
+                    <div>{{ v.v7 }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-warp-item">
+            <div class="flex-warp-item-box">
+              <div class="flex-title">当前设备状态</div>
+              <div class="flex-content flex-content-overflow">
+                <div class="d-states">
+                  <div class="d-states-item">
+                    <SvgIcon
+                      name="elementOdometer"
+                      class="i-bg1"
+                    />
+                    <div class="d-states-flex">
+                      <div class="d-states-item-label">园区设备数</div>
+                      <div class="d-states-item-value">99</div>
+                    </div>
+                  </div>
+                  <div class="d-states-item">
+                    <SvgIcon
+                      name="elementFirstAidKit"
+                      class="i-bg2"
+                    />
+                    <div class="d-states-flex">
+                      <div class="d-states-item-label">预警设备数</div>
+                      <div class="d-states-item-value">10</div>
+                    </div>
+                  </div>
+                  <div class="d-states-item">
+                    <SvgIcon
+                      name="elementVideoPlay"
+                      class="i-bg3"
+                    />
+                    <div class="d-states-flex">
+                      <div class="d-states-item-label">运行设备数</div>
+                      <div class="d-states-item-value">20</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-btn">
+                  <div
+                    class="d-btn-item"
+                    v-for="(v, k) in dBtnList"
+                    :key="k"
+                  >
+                    <i class="d-btn-item-left el-icon-money"></i>
+                    <div class="d-btn-item-center">
+                      <div>{{ v.v2 }}|{{ v.v3 }}</div>
+                    </div>
+                    <div class="d-btn-item-eight">{{ v.v4 }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-warp-item">
+            <div class="flex-warp-item-box">
+              <div class="flex-title">近30天预警总数</div>
+              <div class="flex-content">
+                <div
+                  style="height: 100%"
+                  ref="chartsWarningRef"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-				<!-- 中间 -->
-				<div class="big-data-down-center">
-					<div class="big-data-down-center-one">
-						<div class="big-data-down-center-one-content">
-							<div style="height: 100%" ref="chartsCenterOneRef"></div>
-						</div>
-					</div>
-					<div class="big-data-down-center-two">
-						<div class="flex-warp-item-box">
-							<div class="flex-title">
-								<span>当前设备监测</span>
-								<span class="flex-title-small">单位：次</span>
-							</div>
-							<div class="flex-content">
-								<div class="flex-content-left">
-									<div class="monitor-item" v-for="(v, k) in chartData4List" :key="k">
-										<div class="monitor-wave">
-											<div class="monitor-z-index">
-												<div class="monitor-item-label">{{ v.label }}</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="flex-content-right">
-									<div style="height: 100%" ref="chartsMonitorRef"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+        <!-- 中间 -->
+        <div class="big-data-down-center">
+          <div class="big-data-down-center-one">
+            <div class="big-data-down-center-one-content">
+              <div
+                style="height: 100%"
+                ref="chartsCenterOneRef"
+              ></div>
+            </div>
+          </div>
+          <div class="big-data-down-center-two">
+            <div class="flex-warp-item-box">
+              <div class="flex-title">
+                <span>当前设备监测</span>
+                <span class="flex-title-small">单位：次</span>
+              </div>
+              <div class="flex-content">
+                <div class="flex-content-left">
+                  <div
+                    class="monitor-item"
+                    v-for="(v, k) in chartData4List"
+                    :key="k"
+                  >
+                    <div class="monitor-wave">
+                      <div class="monitor-z-index">
+                        <div class="monitor-item-label">{{ v.label }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex-content-right">
+                  <div
+                    style="height: 100%"
+                    ref="chartsMonitorRef"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-				<!-- 右边 -->
-				<div class="big-data-down-right">
-					<div class="flex-warp-item">
-						<div class="flex-warp-item-box">
-							<div class="flex-title">
-								<span>近7天产品追溯扫码统计</span>
-								<span class="flex-title-small">单位：次</span>
-							</div>
-							<div class="flex-content">
-								<div style="height: 100%" ref="chartsSevenDaysRef"></div>
-							</div>
-						</div>
-					</div>
-					<div class="flex-warp-item">
-						<div class="flex-warp-item-box">
-							<div class="flex-title">当前任务统计</div>
-							<div class="flex-content">
-								<div class="task">
-									<div class="task-item task-first-item">
-										<div class="task-item-value task-first">25</div>
-										<div class="task-item-label">待办任务</div>
-									</div>
-									<div class="task-item">
-										<div class="task-item-box task1">
-											<div class="task-item-value">12</div>
-											<div class="task-item-label">施肥</div>
-										</div>
-									</div>
-									<div class="task-item">
-										<div class="task-item-box task2">
-											<div class="task-item-value">3</div>
-											<div class="task-item-label">施药</div>
-										</div>
-									</div>
-									<div class="task-item">
-										<div class="task-item-box task3">
-											<div class="task-item-value">5</div>
-											<div class="task-item-label">农事</div>
-										</div>
-									</div>
-								</div>
-								<div class="progress">
-									<div class="progress-item">
-										<span>施肥率</span>
-										<div class="progress-box">
-											<el-progress :percentage="70" color="#43bdf0"></el-progress>
-										</div>
-									</div>
-									<div class="progress-item">
-										<span>施药率</span>
-										<div class="progress-box">
-											<el-progress :percentage="36" color="#43bdf0"></el-progress>
-										</div>
-									</div>
-									<div class="progress-item">
-										<span>农事率</span>
-										<div class="progress-box">
-											<el-progress :percentage="91" color="#43bdf0"></el-progress>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="flex-warp-item">
-						<div class="flex-warp-item-box">
-							<div class="flex-title">
-								<span>近7天投入品记录</span>
-								<span class="flex-title-small">单位：件</span>
-							</div>
-							<div class="flex-content">
-								<div style="height: 100%" ref="chartsInvestmentRef"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+        <!-- 右边 -->
+        <div class="big-data-down-right">
+          <div class="flex-warp-item">
+            <div class="flex-warp-item-box">
+              <div class="flex-title">
+                <span>近7天产品追溯扫码统计</span>
+                <span class="flex-title-small">单位：次</span>
+              </div>
+              <div class="flex-content">
+                <div
+                  style="height: 100%"
+                  ref="chartsSevenDaysRef"
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-warp-item">
+            <div class="flex-warp-item-box">
+              <div class="flex-title">当前任务统计</div>
+              <div class="flex-content">
+                <div class="task">
+                  <div class="task-item task-first-item">
+                    <div class="task-item-value task-first">25</div>
+                    <div class="task-item-label">待办任务</div>
+                  </div>
+                  <div class="task-item">
+                    <div class="task-item-box task1">
+                      <div class="task-item-value">12</div>
+                      <div class="task-item-label">施肥</div>
+                    </div>
+                  </div>
+                  <div class="task-item">
+                    <div class="task-item-box task2">
+                      <div class="task-item-value">3</div>
+                      <div class="task-item-label">施药</div>
+                    </div>
+                  </div>
+                  <div class="task-item">
+                    <div class="task-item-box task3">
+                      <div class="task-item-value">5</div>
+                      <div class="task-item-label">农事</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="progress">
+                  <div class="progress-item">
+                    <span>施肥率</span>
+                    <div class="progress-box">
+                      <el-progress
+                        :percentage="70"
+                        color="#43bdf0"
+                      ></el-progress>
+                    </div>
+                  </div>
+                  <div class="progress-item">
+                    <span>施药率</span>
+                    <div class="progress-box">
+                      <el-progress
+                        :percentage="36"
+                        color="#43bdf0"
+                      ></el-progress>
+                    </div>
+                  </div>
+                  <div class="progress-item">
+                    <span>农事率</span>
+                    <div class="progress-box">
+                      <el-progress
+                        :percentage="91"
+                        color="#43bdf0"
+                      ></el-progress>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-warp-item">
+            <div class="flex-warp-item-box">
+              <div class="flex-title">
+                <span>近7天投入品记录</span>
+                <span class="flex-title-small">单位：件</span>
+              </div>
+              <div class="flex-content">
+                <div
+                  style="height: 100%"
+                  ref="chartsInvestmentRef"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -261,7 +313,7 @@ export default {
 							},
 						},
 						data: [
-							{ name: 'vue-next-admin', value: 520 },
+							{ name: 'saas-admin', value: 520 },
 							{ name: 'lyt', value: 520 },
 							{ name: 'next-admin', value: 500 },
 							{ name: '更名', value: 420 },

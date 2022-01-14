@@ -1,17 +1,33 @@
 <template>
-	<div class="layout-view-bg-white flex" :style="{ height: `calc(100vh - ${setViewHeight}` }">
-		<div class="flex-margin">
-			<el-result icon="success" title="普通路由" subTitle="可 `开启 TagsView 共用` 进行单标签测试">
-				<template #extra>
-					<el-input v-model="value" placeholder="请输入路由参数id值" clearable></el-input>
-					<el-button type="primary" size="small" class="mt15" @click="onGoDetailsClick">
-						<SvgIcon name="iconfont icon-putong" />
-						普通路由传参
-					</el-button>
-				</template>
-			</el-result>
-		</div>
-	</div>
+  <div
+    class="layout-view-bg-white flex"
+    :style="{ height: `calc(100vh - ${setViewHeight}` }"
+  >
+    <div class="flex-margin">
+      <el-result
+        icon="success"
+        title="普通路由"
+        subTitle="可 `开启 TagsView 共用` 进行单标签测试"
+      >
+        <template #extra>
+          <el-input
+            v-model="value"
+            placeholder="请输入路由参数id值"
+            clearable
+          ></el-input>
+          <el-button
+            type="primary"
+            size="small"
+            class="mt15"
+            @click="onGoDetailsClick"
+          >
+            <SvgIcon name="iconfont icon-putong" />
+            普通路由传参
+          </el-button>
+        </template>
+      </el-result>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -41,7 +57,7 @@ export default defineComponent({
 		const onGoDetailsClick = () => {
 			router.push({
 				path: '/params/common/details',
-				query: { id: state.value, name: 'vue-next-admin' },
+				query: { id: state.value, name: 'saas-admin' },
 			});
 			state.value = '';
 		};

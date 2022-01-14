@@ -44,12 +44,12 @@ export default {
 			newsList: [
 				{
 					label: '关于版本发布的通知',
-					value: 'vue-next-admin，基于 vue3 + CompositionAPI + typescript + vite + element plus，正式发布时间：2021年02月28日！',
+					value: 'saas-admin，基于 vue3 + CompositionAPI + typescript + vite + element plus，正式发布时间：2021年02月28日！',
 					time: '2020-12-08',
 				},
 				{
 					label: '关于学习交流的通知',
-					value: 'QQ群号码 665452019，欢迎小伙伴入群学习交流探讨！',
+					value: 'QQ群号码 xxxxx，欢迎小伙伴入群学习交流探讨！',
 					time: '2020-12-08',
 				},
 			],
